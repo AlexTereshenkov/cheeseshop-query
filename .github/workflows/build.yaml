@@ -40,7 +40,6 @@ jobs:
         python-version: [ "3.10" ]
 
     steps:
-      - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
@@ -53,3 +52,8 @@ jobs:
 
       - run: |
           ls
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip install *.whl
+          cheeseshop-query
+          cheeseshop-query --version
