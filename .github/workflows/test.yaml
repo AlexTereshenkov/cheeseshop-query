@@ -1,4 +1,4 @@
-name: Project build
+name: Test project
 
 on: [push]
 
