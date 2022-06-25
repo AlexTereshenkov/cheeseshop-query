@@ -1,0 +1,58 @@
+name: Build project
+
+on: [push]
+
+jobs:
+  build:
+    name: "Build Python wheel"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install pip==22.0.4 wheel==0.37.1
+
+      - name: Build artifacts
+        run: |
+          python3 setup.py bdist_wheel
+
+      - name: Upload artifacts (wheel)
+        uses: actions/upload-artifact@v3
+        with:
+            name: wheel
+            path: "dist/*.whl"
+
+  install:
+    name: "Install Python wheel"
+    needs: [build]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.10" ]
+
+    steps:
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Download artifacts (wheel)
+        uses: actions/download-artifact@v3
+        with:
+            name: wheel
+
+      - run: |
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip install *.whl
+          cheeseshop-query
+          cheeseshop-query --version
