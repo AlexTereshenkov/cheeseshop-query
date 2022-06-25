@@ -3,8 +3,8 @@ name: Test project
 on: [push]
 
 jobs:
-  build:
-
+  test:
+    name: "Test project"
     runs-on: ubuntu-latest
     strategy:
       matrix:
