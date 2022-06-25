@@ -51,9 +51,9 @@ jobs:
             name: wheel
 
       - run: |
-          ls
           python3 -m venv .venv
           source .venv/bin/activate
           pip install *.whl
           cheeseshop-query
           cheeseshop-query --version
+          exit 1
