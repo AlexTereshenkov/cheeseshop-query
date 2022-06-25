@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-
+    name: "Build Python wheel"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -25,8 +25,31 @@ jobs:
         run: |
           python3 setup.py bdist_wheel
 
-      - name: Upload artifacts (wheels)
+      - name: Upload artifacts (wheel)
         uses: actions/upload-artifact@v3
         with:
             name: wheel
             path: "dist/*.whl"
+
+  install:
+    name: "Install Python wheel"
+    needs: [build]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.10" ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Download artifacts (wheel)
+        uses: actions/download-artifact@v3
+        with:
+            name: wheel
+
+      - run: |
+          ls
