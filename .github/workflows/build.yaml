@@ -56,4 +56,3 @@ jobs:
           pip install *.whl
           cheeseshop-query
           cheeseshop-query --version
-          exit 1
