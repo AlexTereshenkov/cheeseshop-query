@@ -1,12 +1,13 @@
+from setuptools import find_packages, setup
+
 from cheeseshop.version import VERSION
-from setuptools import setup, find_packages
 
 setup(
     name="cheeseshop-query",
     packages=find_packages(exclude=["tests", "tests.*"]),
     entry_points={
         "console_scripts": [
-            f"cheeseshop-query = cheeseshop.cli.cli:cli",
+            "cheeseshop-query = cheeseshop.cli.cli:cli",
         ],
     },
     include_package_data=True,
