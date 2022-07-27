@@ -12,5 +12,5 @@ setup(
     },
     include_package_data=True,
     version=VERSION,
-    install_requires=["click", "loguru"],
+    install_requires=["click", "loguru", "python-dateutil", "requests"],
 )
