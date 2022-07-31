@@ -23,6 +23,10 @@ jobs:
           pip install -r requirements.txt
           pip install -r requirements-test.txt
 
-      - name: Test with pytest
+      - name: Unit tests
         run: |
           pytest -v -k "not cli"
+
+      - name: Application tests
+        run: |
+          pytest -v -k "cli"
