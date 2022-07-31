@@ -1,8 +1,9 @@
 import reprlib
 from dataclasses import dataclass
 from datetime import datetime
-from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, List, Optional
+
+from packaging.version import Version
 
 from cheeseshop.repository.parsing.casts import (
     from_int,
@@ -16,6 +17,8 @@ from cheeseshop.repository.parsing.casts import (
     to_class,
     to_enum,
 )
+from cheeseshop.repository.properties import PackageType
+from cheeseshop.repository.types import Releases
 
 
 @dataclass
@@ -66,18 +69,6 @@ class ProjectUrls:
         result["Homepage"] = from_union([from_str, from_none], self.homepage)
         result["Source Code"] = from_union([from_str, from_none], self.source_code)
         return result
-
-
-# packaging package specification?
-# requirement specification marker
-
-# class RequiresPython(Enum):
-#     THE_2730313233 = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
-#     THE_35 = ">=3.5"
-#     THE_36 = ">=3.6"
-#     THE_37 = ">=3.7"
-#     THE_37311 = ">=3.7,<3.11"
-#     THE_38 = ">=3.8"
 
 
 @dataclass
@@ -224,6 +215,9 @@ class Info:
         result["yanked"] = from_union([from_bool, from_none], self.yanked)
         return result
 
+    def __repr__(self):
+        return reprlib.repr(self)
+
 
 @dataclass
 class Digests:
@@ -243,16 +237,12 @@ class Digests:
         result["sha256"] = from_union([from_str, from_none], self.sha256)
         return result
 
-
-class Packagetype(Enum):
-    BDIST_WHEEL = "bdist_wheel"
-    BDIST_EGG = "bdist_egg"
-    BDIST_WININST = "bdist_wininst"
-    SDIST = "sdist"
+    def __repr__(self):
+        return reprlib.repr(self)
 
 
 @dataclass
-class URL:
+class PackageFile:
     yanked_reason: Optional[str] = None
     comment_text: Optional[str] = None
     digests: Optional[Digests] = None
@@ -260,7 +250,7 @@ class URL:
     filename: Optional[str] = None
     has_sig: Optional[bool] = None
     md5_digest: Optional[str] = None
-    packagetype: Optional[Packagetype] = None
+    package_type: Optional[PackageType] = None
     python_version: Optional[str] = None
     requires_python: Optional[str] = None
     size: Optional[int] = None
@@ -270,7 +260,7 @@ class URL:
     yanked: Optional[bool] = None
 
     @staticmethod
-    def from_dict(obj: Any) -> "URL":
+    def from_dict(obj: Any) -> "PackageFile":
         assert isinstance(obj, dict)
         yanked_reason = from_union([from_str, from_none], obj.get("yanked_reason"))
         comment_text = from_union([from_str, from_none], obj.get("comment_text"))
@@ -279,7 +269,7 @@ class URL:
         filename = from_union([from_str, from_none], obj.get("filename"))
         has_sig = from_union([from_bool, from_none], obj.get("has_sig"))
         md5_digest = from_union([from_str, from_none], obj.get("md5_digest"))
-        packagetype = from_union([Packagetype, from_none], obj.get("packagetype"))
+        package_type = from_union([PackageType, from_none], obj.get("packagetype"))
         python_version = from_union([from_str, from_none], obj.get("python_version"))
         requires_python = from_union([from_str, from_none], obj.get("requires_python"))
         size = from_union([from_int, from_none], obj.get("size"))
@@ -289,7 +279,7 @@ class URL:
         )
         url = from_union([from_str, from_none], obj.get("url"))
         yanked = from_union([from_bool, from_none], obj.get("yanked"))
-        return URL(
+        return PackageFile(
             yanked_reason,
             comment_text,
             digests,
@@ -297,7 +287,7 @@ class URL:
             filename,
             has_sig,
             md5_digest,
-            packagetype,
+            package_type,
             python_version,
             requires_python,
             size,
@@ -318,8 +308,8 @@ class URL:
         result["filename"] = from_union([from_str, from_none], self.filename)
         result["has_sig"] = from_union([from_bool, from_none], self.has_sig)
         result["md5_digest"] = from_union([from_str, from_none], self.md5_digest)
-        result["packagetype"] = from_union(
-            [lambda x: to_enum(Packagetype, x), from_none], self.packagetype
+        result["package_type"] = from_union(
+            [lambda x: to_enum(PackageType, x), from_none], self.package_type
         )
         result["python_version"] = from_union(
             [from_str, from_none], self.python_version
@@ -338,13 +328,16 @@ class URL:
         result["yanked"] = from_union([from_bool, from_none], self.yanked)
         return result
 
+    def __repr__(self):
+        return reprlib.repr(self)
+
 
 @dataclass
 class Package:
     info: Optional[Info] = None
     last_serial: Optional[int] = None
-    releases: Optional[Dict[str, List[URL]]] = None
-    urls: Optional[List[URL]] = None
+    releases: Optional[Releases] = None
+    urls: Optional[List[PackageFile]] = None
     vulnerabilities: Optional[List[Any]] = None
 
     @staticmethod
@@ -353,11 +346,17 @@ class Package:
         info = from_union([Info.from_dict, from_none], obj.get("info"))
         last_serial = from_union([from_int, from_none], obj.get("last_serial"))
         releases = from_union(
-            [lambda x: from_dict(lambda x: from_list(URL.from_dict, x), x), from_none],
-            obj.get("releases"),
+            [
+                lambda x: from_dict(lambda x: from_list(PackageFile.from_dict, x), x),
+                from_none,
+            ],
+            {
+                Version(version): release
+                for version, release in obj.get("releases", {}).items()
+            },
         )
         urls = from_union(
-            [lambda x: from_list(URL.from_dict, x), from_none], obj.get("urls")
+            [lambda x: from_list(PackageFile.from_dict, x), from_none], obj.get("urls")
         )
         vulnerabilities = from_union(
             [lambda x: from_list(lambda x: x, x), from_none], obj.get("vulnerabilities")
@@ -371,14 +370,15 @@ class Package:
         result["releases"] = from_union(
             [
                 lambda x: from_dict(
-                    lambda x: from_list(lambda x: to_class(URL, x), x), x
+                    lambda x: from_list(lambda x: to_class(PackageFile, x), x), x
                 ),
                 from_none,
             ],
             self.releases,
         )
         result["urls"] = from_union(
-            [lambda x: from_list(lambda x: to_class(URL, x), x), from_none], self.urls
+            [lambda x: from_list(lambda x: to_class(PackageFile, x), x), from_none],
+            self.urls,
         )
         result["vulnerabilities"] = from_union(
             [lambda x: from_list(lambda x: x, x), from_none], self.vulnerabilities

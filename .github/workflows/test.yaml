@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.9", "3.10"]
 
     steps:
       - uses: actions/checkout@v3
@@ -23,6 +23,10 @@ jobs:
           pip install -r requirements.txt
           pip install -r requirements-test.txt
 
-      - name: Test with pytest
+      - name: Unit tests
         run: |
-          pytest -v -k "not cli"
+          pytest -v -k "not cli" --vcr-record=none
+
+      - name: Application tests
+        run: |
+          pytest -v -k "cli" --vcr-record=none

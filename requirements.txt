@@ -2,3 +2,4 @@ click
 requests
 python-dateutil
 loguru
+packaging
