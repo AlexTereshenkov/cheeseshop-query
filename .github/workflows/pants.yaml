@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   build:
-    name: "Run tests"
+    name: "Run Pants build"
     runs-on: ubuntu-latest
     env:
       PANTS_CONFIG_FILES: pants.ci.toml
@@ -22,16 +22,17 @@ jobs:
 
       - name: Tell Pants to use Python ${{ matrix.python-version }}
         # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
-        run: 'echo "PY=python${{ matrix.python-version }}" >> $GITHUB_ENV
+        run: |
+          echo "PY=python${{ matrix.python-version }}" >> $GITHUB_ENV &&
+          echo "PANTS_PYTHON_INTERPRETER_CONSTRAINTS=[''==${{ matrix.python-version}}.*'']" >> $GITHUB_ENV
 
-        echo "PANTS_PYTHON_INTERPRETER_CONSTRAINTS=[''==${{ matrix.python-version
-        }}.*'']" >> $GITHUB_ENV
-        '
-
-      - name: Bootstrap Pants
+      - name: List environment variables
         run: |
           echo "${{ env.PY }}"
           echo "${{ env.PANTS_PYTHON_INTERPRETER_CONSTRAINTS }}"
+
+      - name: Bootstrap Pants
+        run: |
           ./pants version
 
       - name: Run tests
