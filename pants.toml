@@ -7,7 +7,7 @@ backend_packages = [
 ]
 
 [python-bootstrap]
-search_path = ["<PYENV_LOCAL>"]
+search_path = ["<PYENV_LOCAL>", "$PATH"]
 
 [anonymous-telemetry]
 enabled = true
