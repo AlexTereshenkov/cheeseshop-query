@@ -24,7 +24,7 @@ jobs:
         # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
         run: |
           echo "PY=python${{ matrix.python-version }}" >> $GITHUB_ENV &&
-          echo "PANTS_PYTHON_INTERPRETER_CONSTRAINTS=[''==${{ matrix.python-version}}.*'']" >> $GITHUB_ENV
+          echo "PANTS_PYTHON_INTERPRETER_CONSTRAINTS=['==${{ matrix.python-version}}.*']" >> $GITHUB_ENV
 
       - name: List environment variables
         run: |
