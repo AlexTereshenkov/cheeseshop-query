@@ -1,0 +1,29 @@
+[GLOBAL]
+pants_version = "2.12.0"
+
+backend_packages = [
+  "pants.backend.python",
+  "pants.backend.python.lint.black",
+]
+
+[python-bootstrap]
+# https://www.pantsbuild.org/docs/python-interpreter-compatibility#changing-the-interpreter-search-path
+search_path = ["<PYENV_LOCAL>", "<PATH>"]
+
+[anonymous-telemetry]
+enabled = true
+repo_id = "df6470e5-420b-4930-b6e6-638cc06ffe0b"
+
+[source]
+# https://www.pantsbuild.org/docs/source-roots#no-source-root
+root_patterns = [
+    "/"
+]
+
+[pytest]
+# https://www.pantsbuild.org/docs/reference-pytest#section-extra-requirements
+extra_requirements.add = [
+  "pytest-vcr",
+]
+lockfile = "<none>"
+args = ["-v", "--vcr-record=none"]

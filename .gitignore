@@ -130,3 +130,10 @@ dmypy.json
 
 # VSCode
 .vscode
+
+docs/
+
+# Pants workspace files
+/.pants.*
+/dist/
+/.pids

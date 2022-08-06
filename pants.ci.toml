@@ -1,0 +1,8 @@
+[GLOBAL]
+dynamic_ui = false
+colors = true
+
+[test]
+# this is to see the pytest header to know what Python interpreter was used to run the tests
+# https://www.pantsbuild.org/docs/python-test-goal#controlling-output
+output = "all"
