@@ -74,7 +74,7 @@ def list_versions(
     arch: str,
     stable_only: bool,
 ) -> None:
-    """Get compatible versions given the query.."""
+    """Get compatible versions given the query."""
     repository = Repository()
     try:
         package = repository.get(package_name)
@@ -102,14 +102,15 @@ def list_versions(
 
 
 if __name__ == "__main__":
+    cli()
     # for local debugging
-    list_versions(
-        [
-            "--package=numpy",
-            "--python-version=cp310",
-            "--package-type=bdist_wheel",
-            "--platform=macos",
-            "--arch=x86_64",
-            "--stable-only",
-        ]
-    )
+    # list_versions(
+    #     [
+    #         "--package=numpy",
+    #         "--python-version=cp310",
+    #         "--package-type=bdist_wheel",
+    #         "--platform=macos",
+    #         "--arch=x86_64",
+    #         "--stable-only",
+    #     ]
+    # )

@@ -1,0 +1,27 @@
+[GLOBAL]
+pants_version = "2.12.0"
+
+backend_packages = [
+  "pants.backend.python",
+  "pants.backend.python.lint.black",
+]
+
+[python-bootstrap]
+search_path = ["<PYENV_LOCAL>"]
+
+[anonymous-telemetry]
+enabled = true
+repo_id = "df6470e5-420b-4930-b6e6-638cc06ffe0b"
+
+[source]
+root_patterns = [
+    "/"
+]
+
+[pytest]
+extra_requirements.add = [
+  "pytest-vcr",
+]
+lockfile = "<none>"
+args = ["-v --vcr-record=none"]
+
