@@ -23,5 +23,4 @@ extra_requirements.add = [
   "pytest-vcr",
 ]
 lockfile = "<none>"
-args = ["-v --vcr-record=none"]
-
+args = ["-v", "--vcr-record=none"]

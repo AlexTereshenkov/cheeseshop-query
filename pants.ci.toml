@@ -1,0 +1,6 @@
+[GLOBAL]
+dynamic_ui = false
+colors = true
+
+[test]
+output = "all"
