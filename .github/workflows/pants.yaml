@@ -26,4 +26,6 @@ jobs:
         '
       - name: Run tests
         run: |
+          echo "${{ env.PY }}"
+          echo "${{ env.PANTS_PYTHON_INTERPRETER_CONSTRAINTS }}"
           ./pants test ::
