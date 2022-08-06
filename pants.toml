@@ -7,7 +7,7 @@ backend_packages = [
 ]
 
 [python-bootstrap]
-search_path = ["<PYENV_LOCAL>", "<PATH>"]
+search_path = ["<PYENV_LOCAL>", "/usr/bin/python3.10"]
 
 [anonymous-telemetry]
 enabled = true
