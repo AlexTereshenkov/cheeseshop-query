@@ -39,6 +39,11 @@ jobs:
         run: |
           ./pants test ::
 
+      - name: Run linters
+        run: |
+          ./pants update-build-files --check ::
+          ./pants lint ::
+
       - name: Package and check Python wheel
         run: |
           ./pants package //:cheeseshop-query-wheel
