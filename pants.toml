@@ -1,10 +1,18 @@
 [GLOBAL]
-pants_version = "2.12.0"
+pants_version = "2.13.0rc1"
 
 backend_packages = [
   "pants.backend.python",
   "pants.backend.python.lint.black",
+  "pants.backend.python.lint.flake8",
+  "pants.backend.python.typecheck.mypy",
 ]
+
+[python]
+enable_resolves = true
+
+[python.resolves]
+python-default = "requirements/requirements.lock"
 
 [python-bootstrap]
 # https://www.pantsbuild.org/docs/python-interpreter-compatibility#changing-the-interpreter-search-path
@@ -20,10 +28,22 @@ root_patterns = [
     "/"
 ]
 
+[flake8]
+version = "flake8==5.0.4"
+lockfile = "requirements/flake8.lock"
+
+[mypy]
+version = "mypy==0.971"
+lockfile = "requirements/mypy.lock"
+
+[black]
+version = "black==22.6.0"
+lockfile = "requirements/black.lock"
+
 [pytest]
 # https://www.pantsbuild.org/docs/reference-pytest#section-extra-requirements
 extra_requirements.add = [
   "pytest-vcr",
 ]
-lockfile = "<none>"
+lockfile = "requirements/pytest.lock"
 args = ["-v", "--vcr-record=none"]
