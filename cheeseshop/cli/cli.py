@@ -44,19 +44,19 @@ def info(package_name: str) -> None:
 @click.option(
     "--package-type",
     "package_type",
-    help=f"Python package type.",
+    help="Python package type.",
     type=click.Choice(choices(PackageType)),
 )
 @click.option(
     "--platform",
     "platform",
-    help=f"Platform name.",
+    help="Platform name.",
     type=click.Choice(choices(Platform)),
 )
 @click.option(
     "--arch",
     "arch",
-    help=f"Architecture name.",
+    help="Architecture name.",
     type=click.Choice(choices(Architecture)),
 )
 @click.option(
