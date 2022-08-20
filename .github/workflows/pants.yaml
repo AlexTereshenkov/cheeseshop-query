@@ -38,3 +38,13 @@ jobs:
       - name: Run tests
         run: |
           ./pants test ::
+
+      - name: Package and check Python wheel
+        run: |
+          ./pants package //:cheeseshop-query-wheel
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip install dist/*.whl
+          cheeseshop-query
+          cheeseshop-query --version
+
