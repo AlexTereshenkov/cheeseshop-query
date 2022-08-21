@@ -57,3 +57,7 @@ jobs:
           cheeseshop-query
           cheeseshop-query --version
 
+      - name: Package and check PEX file
+        run: |
+          ./pants package cheeseshop/cli:cheeseshop-query
+          dist/**/*.pex --help

@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    name: "Build Python wheel"
+    name: "Build Python packages"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,11 +19,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install pip==22.0.4 wheel==0.37.1
+          python -m pip install pip==22.0.4 wheel==0.37.1 pex==2.1.102
 
-      - name: Build artifacts
+      - name: Build Python wheel
         run: |
           python3 setup.py bdist_wheel
+
+      - name: Build PEX file
+        run: |
+          python3 setup.py bdist_pex
 
       - name: Upload artifacts (wheel)
         uses: actions/upload-artifact@v3
@@ -31,8 +35,14 @@ jobs:
             name: wheel
             path: "dist/*.whl"
 
+      - name: Upload artifacts (pex)
+        uses: actions/upload-artifact@v3
+        with:
+            name: pex
+            path: "dist/*.pex"
+
   install:
-    name: "Install Python wheel"
+    name: "Check Python packages"
     needs: [build]
     runs-on: ubuntu-latest
     strategy:
@@ -56,3 +66,11 @@ jobs:
           pip install *.whl
           cheeseshop-query
           cheeseshop-query --version
+
+      - name: Download artifacts (PEX)
+        uses: actions/download-artifact@v3
+        with:
+            name: pex
+
+      - run: |
+          python3 *.pex --help
