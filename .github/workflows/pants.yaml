@@ -44,6 +44,10 @@ jobs:
           ./pants update-build-files --check ::
           ./pants lint ::
 
+      - name: Run type checkers
+        run: |
+          ./pants check ::
+
       - name: Package and check Python wheel
         run: |
           ./pants package //:cheeseshop-query-wheel

@@ -34,7 +34,8 @@ def info(package_name: str) -> None:
         logger.error(str(err))
         sys.exit(1)
 
-    click.echo(package.info.summary)
+    if package.info:
+        click.echo(package.info.summary)
     return
 
 

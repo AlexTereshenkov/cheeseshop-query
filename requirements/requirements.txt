@@ -1,5 +1,6 @@
 click
-requests
-python-dateutil
 loguru
 packaging
+python-dateutil
+requests
+typing-extensions
