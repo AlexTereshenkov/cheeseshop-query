@@ -5,3 +5,4 @@ mypy
 types-python-dateutil
 types-requests
 isort
+yamllint
