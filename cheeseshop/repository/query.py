@@ -2,8 +2,7 @@ from typing import Optional, Callable
 
 from packaging.version import Version
 
-from cheeseshop.repository.package import Package, PackageFile
-from cheeseshop.repository.types import Releases
+from cheeseshop.repository.package import Package, PackageFile, Releases
 
 
 def is_stable_version(version: Version) -> bool:
@@ -37,9 +36,17 @@ def filter_releases(
 ) -> Releases:
     """Filter releases by querying the collection."""
     releases_matching_query = {}
+    if not package.releases:
+        raise ValueError(f"Package {package} doesn't have any releases.")
+
     for version, package_files in package.releases.items():
         compatible_package_files = []
         for package_file in package_files:
+            if not package_file.package_type:
+                raise ValueError(f"Package {package} doesn't have a package type.")
+            if not package_file.filename:
+                raise ValueError(f"Package {package} doesn't have a filename.")
+
             if (
                 package_file.package_type.value == package_type
                 and package_file.python_version == python_version

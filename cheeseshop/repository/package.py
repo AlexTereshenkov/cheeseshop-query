@@ -2,6 +2,7 @@ import reprlib
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, List, Optional
+from typing_extensions import TypeAlias
 
 from packaging.version import Version
 
@@ -18,7 +19,6 @@ from cheeseshop.repository.parsing.casts import (
     to_enum,
 )
 from cheeseshop.repository.properties import PackageType
-from cheeseshop.repository.types import Releases
 
 
 @dataclass
@@ -336,7 +336,7 @@ class PackageFile:
 class Package:
     info: Optional[Info] = None
     last_serial: Optional[int] = None
-    releases: Optional[Releases] = None
+    releases: Optional[dict[Version, list[PackageFile]]] = None
     urls: Optional[List[PackageFile]] = None
     vulnerabilities: Optional[List[Any]] = None
 
@@ -387,3 +387,6 @@ class Package:
 
     def __repr__(self):
         return reprlib.repr(self)
+
+
+Releases: TypeAlias = dict[Version, list[PackageFile]]
