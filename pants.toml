@@ -10,7 +10,7 @@ backend_packages = [
 
 [python]
 enable_resolves = true
-interpreter_constraints = ["CPython==3.9.*"]
+interpreter_constraints = ["CPython==3.9.*", "CPython==3.10.*"]
 
 [python.resolves]
 python-default = "requirements/requirements.lock"
