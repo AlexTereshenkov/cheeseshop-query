@@ -332,11 +332,14 @@ class PackageFile:
         return reprlib.repr(self)
 
 
+Releases: TypeAlias = dict[Version, list[PackageFile]]
+
+
 @dataclass
 class Package:
     info: Optional[Info] = None
     last_serial: Optional[int] = None
-    releases: Optional[dict[Version, list[PackageFile]]] = None
+    releases: Optional[Releases] = None
     urls: Optional[List[PackageFile]] = None
     vulnerabilities: Optional[List[Any]] = None
 
@@ -387,6 +390,3 @@ class Package:
 
     def __repr__(self):
         return reprlib.repr(self)
-
-
-Releases: TypeAlias = dict[Version, list[PackageFile]]
