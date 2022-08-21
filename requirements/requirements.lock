@@ -6,6 +6,7 @@
 // {
 //   "version": 2,
 //   "valid_for_interpreter_constraints": [
+//     "CPython==3.10.*",
 //     "CPython==3.9.*"
 //   ],
 //   "generated_with_requirements": [
@@ -304,6 +305,7 @@
     "typing-extensions"
   ],
   "requires_python": [
+    "==3.10.*",
     "==3.9.*"
   ],
   "resolver_version": "pip-2020-resolver",
