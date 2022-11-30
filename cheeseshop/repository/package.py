@@ -20,6 +20,9 @@ from cheeseshop.repository.parsing.casts import (
 )
 from cheeseshop.repository.properties import PackageType
 
+# forbidden import
+# from cheeseshop.cli.utils.utils import choices
+
 
 @dataclass
 class Downloads:

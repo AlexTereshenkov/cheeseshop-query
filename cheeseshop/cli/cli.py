@@ -3,7 +3,7 @@ import sys
 import click
 from loguru import logger
 
-from cheeseshop.cli.utils import choices
+from cheeseshop.cli.utils.utils import choices
 from cheeseshop.repository.package import PackageType
 from cheeseshop.repository.properties import Architecture, Platform
 from cheeseshop.repository.query import filter_releases, get_versions, is_stable_version
