@@ -1,9 +1,9 @@
-from experiment.targets import CustomTarget
+from experiment.targets import ProjectVersionTarget
 import experiment.custom_rules as custom_rules
 
 
 def target_types():
-    return [CustomTarget]
+    return [ProjectVersionTarget]
 
 
 def rules():

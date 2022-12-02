@@ -1,12 +1,17 @@
 from pants.engine.console import Console
-from pants.engine.fs import PathGlobs, DigestContents
+from pants.engine.fs import DigestContents
 from pants.engine.goal import GoalSubsystem, Goal
 from pants.engine.internals.native_engine import Digest
 from pants.engine.internals.selectors import Get, MultiGet
 from pants.engine.rules import collect_rules, rule, goal_rule
-from pants.engine.target import Targets
+from pants.engine.target import (
+    Targets,
+    HydratedSources,
+    HydrateSourcesRequest,
+    SourcesField,
+)
 
-from experiment.targets import CustomTarget, CustomField
+from experiment.targets import ProjectVersionTarget
 from dataclasses import dataclass
 
 
@@ -22,13 +27,12 @@ class ProjectVersionFileView:
 
 
 @rule
-async def read_target_fields(custom_target: CustomTarget) -> ProjectVersionFileView:
+async def get_project_version_file_view(target: ProjectVersionTarget) -> ProjectVersionFileView:
     # TODO: is running `--no-pantsd` the only option to make sure logger messages are
     #  shown in the console?
-    logger.info(f"Accessing <custom_target.alias>: {custom_target.alias}")
     # TODO: how to set value for a field? custom_target[CustomField].value = "SomeValue"
-    digest = await Get(Digest, PathGlobs([custom_target[CustomField].value]))
-    digest_contents = await Get(DigestContents, Digest, digest)
+    sources = await Get(HydratedSources, HydrateSourcesRequest(target[SourcesField]))
+    digest_contents = await Get(DigestContents, Digest, sources.snapshot.digest)
 
     # TODO: better way to check that the repo contains only one target of a certain type
     if len(digest_contents) > 1:
@@ -51,7 +55,7 @@ class ProjectVersionGoal(Goal):
 
 @goal_rule
 async def main(console: Console, targets: Targets) -> ProjectVersionGoal:
-    targets = [tgt for tgt in targets if tgt.has_field(CustomField)]
+    targets = [tgt for tgt in targets if tgt.alias == ProjectVersionTarget.alias]
 
     # instead of doing:
     # for target in targets:
@@ -62,9 +66,9 @@ async def main(console: Console, targets: Targets) -> ProjectVersionGoal:
     # we can use MultiGet
     # https://www.pantsbuild.org/docs/rules-api-concepts#multiget-for-concurrency
     results = await MultiGet(
-        Get(ProjectVersionFileView, CustomTarget, target) for target in targets
+        Get(ProjectVersionFileView, ProjectVersionTarget, target) for target in targets
     )
-    console.print_stdout(str(results))
+    console.print_stdout(str(results[0]))
     return ProjectVersionGoal(exit_code=0)
 
 
