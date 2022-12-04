@@ -27,7 +27,9 @@ class ProjectVersionFileView:
 
 
 @rule
-async def get_project_version_file_view(target: ProjectVersionTarget) -> ProjectVersionFileView:
+async def get_project_version_file_view(
+    target: ProjectVersionTarget,
+) -> ProjectVersionFileView:
     # TODO: is running `--no-pantsd` the only option to make sure logger messages are
     #  shown in the console?
     # TODO: how to set value for a field? custom_target[CustomField].value = "SomeValue"
