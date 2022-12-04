@@ -11,7 +11,7 @@ from pants.engine.target import (
     SourcesField,
 )
 
-from experiment.targets import ProjectVersionTarget
+from project_version.targets import ProjectVersionTarget
 from dataclasses import dataclass
 
 
