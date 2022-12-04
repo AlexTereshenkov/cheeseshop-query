@@ -51,6 +51,10 @@ jobs:
         run: |
           ./pants check ::
 
+      - name: Get project version from Pants plugin
+        run: |
+          ./pants project-version ::
+
       - name: Package and check Python wheel
         run: |
           ./pants package //:cheeseshop-query-wheel
