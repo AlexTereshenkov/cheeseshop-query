@@ -5,6 +5,7 @@ backend_packages = [
   "pants.backend.python",
   "pants.backend.python.lint.black",
   "pants.backend.python.lint.flake8",
+  "pants.backend.python.lint.docformatter",
   "pants.backend.python.typecheck.mypy",
 ]
 
@@ -45,6 +46,10 @@ extra_type_stubs = [
 [black]
 version = "black==22.6.0"
 lockfile = "requirements/black.lock"
+
+[docformatter]
+version = "docformatter>=1.4,<1.5"
+lockfile = "requirements/docformatter.lock"
 
 [pytest]
 # https://www.pantsbuild.org/docs/reference-pytest#section-extra-requirements
