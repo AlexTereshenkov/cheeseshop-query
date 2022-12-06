@@ -2,19 +2,19 @@ import reprlib
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, List, Optional
-from typing_extensions import TypeAlias
 
 from packaging.version import Version
+from typing_extensions import TypeAlias
 
 from cheeseshop.repository.parsing.casts import (
-    from_int,
-    from_none,
-    from_union,
-    from_str,
-    from_list,
     from_bool,
     from_datetime,
     from_dict,
+    from_int,
+    from_list,
+    from_none,
+    from_str,
+    from_union,
     to_class,
     to_enum,
 )

@@ -5,16 +5,16 @@ import dateutil
 import pytest
 
 from cheeseshop.repository.parsing.casts import (
-    to_class,
-    to_enum,
-    from_int,
-    from_str,
-    from_none,
     from_bool,
     from_datetime,
-    from_list,
     from_dict,
+    from_int,
+    from_list,
+    from_none,
+    from_str,
     from_union,
+    to_class,
+    to_enum,
 )
 from cheeseshop.repository.parsing.exceptions import TypeErrorException
 

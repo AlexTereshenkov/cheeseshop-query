@@ -1,10 +1,10 @@
 from datetime import datetime
 from enum import Enum
 from textwrap import shorten
-from typing import TypeVar, Any, Callable, List, Dict, Type, cast
-from loguru import logger
+from typing import Any, Callable, Dict, List, Type, TypeVar, cast
 
 import dateutil.parser
+from loguru import logger
 
 from cheeseshop.repository.parsing.exceptions import TypeErrorException
 

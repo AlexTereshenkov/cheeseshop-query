@@ -1,9 +1,9 @@
 import pytest
 from packaging.version import Version
 
-from cheeseshop.repository.package import PackageFile, Package
+from cheeseshop.repository.package import Package, PackageFile
 from cheeseshop.repository.properties import PackageType
-from cheeseshop.repository.query import is_stable_version, get_versions, filter_releases
+from cheeseshop.repository.query import filter_releases, get_versions, is_stable_version
 
 
 @pytest.mark.parametrize(

@@ -4,9 +4,9 @@ import click
 from loguru import logger
 
 from cheeseshop.cli.utils import choices
-from cheeseshop.repository.query import get_versions, filter_releases, is_stable_version
 from cheeseshop.repository.package import PackageType
-from cheeseshop.repository.properties import Platform, Architecture
+from cheeseshop.repository.properties import Architecture, Platform
+from cheeseshop.repository.query import filter_releases, get_versions, is_stable_version
 from cheeseshop.repository.repository import Repository
 from cheeseshop.version import VERSION
 

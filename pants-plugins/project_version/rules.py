@@ -1,21 +1,19 @@
+import logging
+from dataclasses import dataclass
+
 from pants.engine.console import Console
 from pants.engine.fs import DigestContents
-from pants.engine.goal import GoalSubsystem, Goal
+from pants.engine.goal import Goal, GoalSubsystem
 from pants.engine.internals.native_engine import Digest
 from pants.engine.internals.selectors import Get, MultiGet
-from pants.engine.rules import collect_rules, rule, goal_rule
+from pants.engine.rules import collect_rules, goal_rule, rule
 from pants.engine.target import (
-    Targets,
     HydratedSources,
     HydrateSourcesRequest,
     SourcesField,
+    Targets,
 )
-
 from project_version.targets import ProjectVersionTarget
-from dataclasses import dataclass
-
-
-import logging
 
 logger = logging.getLogger(__name__)
 

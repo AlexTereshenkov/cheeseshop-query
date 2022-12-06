@@ -2,12 +2,12 @@ import json
 import sys
 from typing import Optional
 
-from loguru import logger
 import requests
+from loguru import logger
 
 from cheeseshop.configs import DEFAULT_PYPI_REPOSITORY
-from cheeseshop.repository.parsing.exceptions import PackageNotFoundError
 from cheeseshop.repository.package import Package
+from cheeseshop.repository.parsing.exceptions import PackageNotFoundError
 
 
 class Repository:
