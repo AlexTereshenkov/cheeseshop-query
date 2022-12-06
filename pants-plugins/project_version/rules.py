@@ -56,21 +56,15 @@ class ProjectVersionGoal(Goal):
 
 
 @goal_rule
-async def main(console: Console, targets: Targets) -> ProjectVersionGoal:
+async def goal_show_project_version(
+    console: Console, targets: Targets
+) -> ProjectVersionGoal:
     targets = [tgt for tgt in targets if tgt.alias == ProjectVersionTarget.alias]
-
-    # instead of doing:
-    # for target in targets:
-    #     console.print_stdout(target.address.spec)
-    #     # await Get(OutputType, InputType, input)
-    #     result = await Get(MyResult, CustomTarget, target)
-    #     console.print_stdout(result)
-    # we can use MultiGet
-    # https://www.pantsbuild.org/docs/rules-api-concepts#multiget-for-concurrency
     results = await MultiGet(
         Get(ProjectVersionFileView, ProjectVersionTarget, target) for target in targets
     )
-    console.print_stdout(str(results[0]))
+    for result in results:
+        console.print_stdout(str(result))
     return ProjectVersionGoal(exit_code=0)
 
 

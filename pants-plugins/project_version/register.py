@@ -1,5 +1,5 @@
+import project_version.rules as project_version_rules
 from project_version.targets import ProjectVersionTarget
-import project_version.custom_rules as custom_rules
 
 
 def target_types():
@@ -7,4 +7,4 @@ def target_types():
 
 
 def rules():
-    return [*custom_rules.rules()]
+    return [*project_version_rules.rules()]
