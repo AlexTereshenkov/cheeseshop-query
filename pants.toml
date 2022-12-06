@@ -1,12 +1,16 @@
 [GLOBAL]
 pants_version = "2.14.0"
 
+pythonpath = ["%(buildroot)s/pants-plugins"]
+
 backend_packages = [
   "pants.backend.python",
   "pants.backend.python.lint.black",
   "pants.backend.python.lint.flake8",
   "pants.backend.python.lint.docformatter",
   "pants.backend.python.typecheck.mypy",
+  # plugins
+  "project_version",
 ]
 
 [python]
@@ -27,7 +31,7 @@ repo_id = "df6470e5-420b-4930-b6e6-638cc06ffe0b"
 [source]
 # https://www.pantsbuild.org/docs/source-roots#no-source-root
 root_patterns = [
-    "/"
+    "/", "pants-plugins"
 ]
 
 [flake8]
