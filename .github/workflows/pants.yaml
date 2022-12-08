@@ -5,13 +5,13 @@ on: [pull_request]
 jobs:
   build:
     name: "Run Pants build"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       PANTS_CONFIG_FILES: pants.ci.toml
 
     strategy:
       matrix:
-        python-version: ["3.10", "3.8"]
+        python-version: ["3.10"]
 
     steps:
       - uses: actions/checkout@v3
