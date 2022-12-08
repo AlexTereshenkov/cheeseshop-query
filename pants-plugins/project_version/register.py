@@ -1,8 +1,11 @@
+from typing import Iterable
+
 import project_version.rules as project_version_rules
-from project_version.targets import ProjectVersionTarget
+from pants.engine.target import Target
+from project_version.target_types import ProjectVersionTarget
 
 
-def target_types():
+def target_types() -> Iterable[type[Target]]:
     return [ProjectVersionTarget]
 
 
