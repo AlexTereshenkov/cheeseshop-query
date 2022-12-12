@@ -13,7 +13,7 @@ from pants.engine.target import (
     SourcesField,
     Targets,
 )
-from project_version.targets import ProjectVersionTarget
+from project_version.target_types import ProjectVersionTarget
 
 logger = logging.getLogger(__name__)
 
