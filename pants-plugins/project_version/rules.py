@@ -1,6 +1,7 @@
 import logging
 from dataclasses import dataclass
 
+from packaging.version import InvalidVersion, Version
 from pants.engine.console import Console
 from pants.engine.fs import DigestContents
 from pants.engine.goal import Goal, GoalSubsystem
@@ -13,7 +14,7 @@ from pants.engine.target import (
     SourcesField,
     Targets,
 )
-from project_version.target_types import ProjectVersionTarget
+from project_version.target_types import ProjectVersionSourceField, ProjectVersionTarget
 
 logger = logging.getLogger(__name__)
 
@@ -53,15 +54,26 @@ class ProjectVersionGoal(Goal):
     subsystem_cls = ProjectVersionSubsystem
 
 
+class InvalidProjectVersionString(ValueError):
+    pass
+
+
 @goal_rule
 async def goal_show_project_version(
     console: Console, targets: Targets
 ) -> ProjectVersionGoal:
-    targets = [tgt for tgt in targets if tgt.alias == ProjectVersionTarget.alias]
+    targets = [tgt for tgt in targets if tgt.has_field(ProjectVersionSourceField)]
     results = await MultiGet(
         Get(ProjectVersionFileView, ProjectVersionTarget, target) for target in targets
     )
     for result in results:
+        try:
+            _ = Version(result.version)
+        except InvalidVersion:
+            raise InvalidProjectVersionString(
+                f"Invalid version string '{result.version}' from '{result.path}'"
+            )
+
         console.print_stdout(str(result))
     return ProjectVersionGoal(exit_code=0)
 
