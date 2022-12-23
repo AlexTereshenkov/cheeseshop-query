@@ -9,6 +9,7 @@
 //     "CPython<3.10,>=3.9"
 //   ],
 //   "generated_with_requirements": [
+//     "packaging==21.3",
 //     "pantsbuild.pants.testutil<2.15,>=2.14.0a0",
 //     "pantsbuild.pants<2.15,>=2.14.0a0"
 //   ],
@@ -944,6 +945,7 @@
   "pip_version": "20.3.4-patched",
   "prefer_older_binary": false,
   "requirements": [
+    "packaging==21.3",
     "pantsbuild.pants.testutil<2.15,>=2.14.0a0",
     "pantsbuild.pants<2.15,>=2.14.0a0"
   ],
