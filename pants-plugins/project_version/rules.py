@@ -1,6 +1,5 @@
 import dataclasses
 import json
-import logging
 import os
 from dataclasses import dataclass
 
@@ -21,8 +20,6 @@ from pants.engine.target import (
 )
 from pants.option.option_types import BoolOption
 from project_version.target_types import ProjectVersionSourceField, ProjectVersionTarget
-
-logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
