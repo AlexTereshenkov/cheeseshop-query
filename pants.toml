@@ -17,6 +17,11 @@ backend_packages = [
 
 plugins = ["packaging==21.3"]
 
+# plugin options
+[project-version]
+as_json = true
+check_git = false
+
 [python]
 enable_resolves = true
 interpreter_constraints = ["CPython>=3.9.*,<=3.10.*"]
