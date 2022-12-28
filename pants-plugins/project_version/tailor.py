@@ -21,7 +21,7 @@ class PutativeProjectVersionTargetsRequest(PutativeTargetsRequest):
     pass
 
 
-@rule(desc="Determine candidate project_version targets to create")
+@rule(desc="Determine candidate version_file targets to create")
 async def find_putative_targets(
     req: PutativeProjectVersionTargetsRequest,
     all_owned_sources: AllOwnedSources,

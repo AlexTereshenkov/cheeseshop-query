@@ -35,16 +35,8 @@ class ProjectVersionFileView:
 async def get_project_version_file_view(
     target: ProjectVersionTarget,
 ) -> ProjectVersionFileView:
-    # TODO: is running `--no-pantsd` the only option to make sure logger messages are
-    #  shown in the console?
-    # TODO: how to set value for a field? custom_target[CustomField].value = "SomeValue"
     sources = await Get(HydratedSources, HydrateSourcesRequest(target[SourcesField]))
     digest_contents = await Get(DigestContents, Digest, sources.snapshot.digest)
-
-    # TODO: better way to check that the repo contains only one target of a certain type
-    if len(digest_contents) > 1:
-        raise ValueError("There should be only one source file.")
-
     file_content = digest_contents[0]
     return ProjectVersionFileView(
         path=file_content.path, version=file_content.content.decode("utf-8").strip()
