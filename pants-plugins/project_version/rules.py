@@ -1,9 +1,9 @@
 import dataclasses
 import json
-import os
 from dataclasses import dataclass
 
 from packaging.version import InvalidVersion, Version
+from pants.base.build_root import BuildRoot
 from pants.core.util_rules.system_binaries import BinaryPathRequest, BinaryPaths
 from pants.engine.console import Console
 from pants.engine.fs import DigestContents
@@ -48,7 +48,7 @@ class ProjectVersionSubsystem(GoalSubsystem):
         default=False,
         help="Show project version information as JSON.",
     )
-    check_git = BoolOption(
+    match_git = BoolOption(
         default=False,
         help="Check Git tag of the repository matches the project version.",
     )
@@ -80,7 +80,7 @@ async def goal_show_project_version(
     results = await MultiGet(
         Get(ProjectVersionFileView, ProjectVersionTarget, target) for target in targets
     )
-    if project_version_subsystem.check_git:
+    if project_version_subsystem.match_git:
         git_repo_version = await Get(GitTagVersion, str, "")
 
     for result in results:
@@ -90,7 +90,7 @@ async def goal_show_project_version(
             raise InvalidProjectVersionString(
                 f"Invalid version string '{result.version}' from '{result.path}'"
             )
-        if project_version_subsystem.check_git:
+        if project_version_subsystem.match_git:
             if git_repo_version != result.version:
                 raise ProjectVersionGitTagMismatch(
                     f"Project version string '{result.version}' from '{result.path}' "
@@ -120,7 +120,7 @@ async def get_git_repo_version(description: str = "") -> GitTagVersion:
     git_describe = await Get(
         ProcessResult,
         Process(
-            argv=[git_bin.path, "-C", os.getcwd(), "describe", "--tags"],
+            argv=[git_bin.path, "-C", BuildRoot().path, "describe", "--tags"],
             description=description,
             cache_scope=ProcessCacheScope.PER_SESSION,
         ),
