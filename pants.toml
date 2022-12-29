@@ -20,7 +20,7 @@ plugins = ["packaging==21.3"]
 # plugin options
 [project-version]
 as_json = true
-check_git = false
+match_git = false
 
 [python]
 enable_resolves = true
