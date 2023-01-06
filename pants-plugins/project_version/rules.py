@@ -106,7 +106,7 @@ async def goal_show_project_version(
 
 
 @rule
-async def get_git_repo_version(description: str = "") -> GitTagVersion:
+async def get_git_repo_version(buildroot: BuildRoot, description: str = "") -> GitTagVersion:
     git_paths = await Get(
         BinaryPaths,
         BinaryPathRequest(
@@ -120,7 +120,7 @@ async def get_git_repo_version(description: str = "") -> GitTagVersion:
     git_describe = await Get(
         ProcessResult,
         Process(
-            argv=[git_bin.path, "-C", BuildRoot().path, "describe", "--tags"],
+            argv=[git_bin.path, "-C", buildroot.path, "describe", "--tags"],
             description=description,
             cache_scope=ProcessCacheScope.PER_SESSION,
         ),
