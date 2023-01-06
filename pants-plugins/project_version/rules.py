@@ -106,7 +106,9 @@ async def goal_show_project_version(
 
 
 @rule
-async def get_git_repo_version(buildroot: BuildRoot, description: str = "") -> GitTagVersion:
+async def get_git_repo_version(
+    buildroot: BuildRoot, description: str = ""
+) -> GitTagVersion:
     git_paths = await Get(
         BinaryPaths,
         BinaryPathRequest(
