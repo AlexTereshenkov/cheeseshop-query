@@ -12,7 +12,7 @@ backend_packages = [
   "pants.backend.python.typecheck.mypy",
   # plugins
   "pants.backend.plugin_development",
-  "project_version",
+  "internal_plugins.project_version",
 ]
 
 plugins = ["packaging==21.3"]
@@ -46,7 +46,7 @@ repo_id = "df6470e5-420b-4930-b6e6-638cc06ffe0b"
 [source]
 # https://www.pantsbuild.org/docs/source-roots#no-source-root
 root_patterns = [
-    "/", "pants-plugins"
+    "/", "/pants-plugins"
 ]
 
 [flake8]
