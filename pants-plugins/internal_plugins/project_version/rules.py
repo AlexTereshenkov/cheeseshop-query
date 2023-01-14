@@ -2,10 +2,6 @@ import dataclasses
 import json
 from dataclasses import dataclass
 
-from internal_plugins.project_version.target_types import (
-    ProjectVersionSourceField,
-    ProjectVersionTarget,
-)
 from packaging.version import InvalidVersion, Version
 from pants.base.build_root import BuildRoot
 from pants.core.util_rules.system_binaries import BinaryPathRequest, BinaryPaths
@@ -23,6 +19,11 @@ from pants.engine.target import (
     Targets,
 )
 from pants.option.option_types import BoolOption
+
+from internal_plugins.project_version.target_types import (
+    ProjectVersionSourceField,
+    ProjectVersionTarget,
+)
 
 
 @dataclass(frozen=True)
