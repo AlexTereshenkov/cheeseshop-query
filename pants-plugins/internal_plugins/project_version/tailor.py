@@ -13,7 +13,8 @@ from pants.engine.fs import PathGlobs, Paths
 from pants.engine.internals.selectors import Get
 from pants.engine.rules import collect_rules, rule
 from pants.engine.unions import UnionRule
-from project_version.target_types import ProjectVersionTarget
+
+from internal_plugins.project_version.target_types import ProjectVersionTarget
 
 
 @dataclass(frozen=True)

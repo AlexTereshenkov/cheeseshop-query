@@ -1,9 +1,10 @@
 from typing import Iterable
 
-import project_version.rules as project_version_rules
-import project_version.tailor as tailor_rules
 from pants.engine.target import Target
-from project_version.target_types import ProjectVersionTarget
+
+import internal_plugins.project_version.rules as project_version_rules
+import internal_plugins.project_version.tailor as tailor_rules
+from internal_plugins.project_version.target_types import ProjectVersionTarget
 
 
 def target_types() -> Iterable[type[Target]]:

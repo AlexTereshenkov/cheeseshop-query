@@ -19,7 +19,11 @@ from pants.engine.target import (
     Targets,
 )
 from pants.option.option_types import BoolOption
-from project_version.target_types import ProjectVersionSourceField, ProjectVersionTarget
+
+from internal_plugins.project_version.target_types import (
+    ProjectVersionSourceField,
+    ProjectVersionTarget,
+)
 
 
 @dataclass(frozen=True)
