@@ -1,8 +1,10 @@
 python_sources(
+    name="pants-plugins",
     resolve="pants-plugins",
     dependencies=["pants-plugins:packaging"],
 )
 python_tests(
     name="tests",
     resolve="pants-plugins",
+    dependencies=[":pants-plugins"],
 )
