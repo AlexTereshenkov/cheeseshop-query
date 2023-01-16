@@ -25,8 +25,8 @@ jobs:
 
       - name: Unit tests
         run: |
-          pytest -v -k "not cli" -k "not pants-plugins" --vcr-record=none
+          pytest -v -k "not cli and not pants-plugins" --vcr-record=none
 
       - name: Application tests
         run: |
-          pytest -v -k "cli" -k "not pants-plugins" --vcr-record=none
+          pytest -v -k "cli and not pants-plugins" --vcr-record=none
