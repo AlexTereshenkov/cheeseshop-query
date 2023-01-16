@@ -31,4 +31,3 @@ def test_reading_project_version_target() -> None:
             {"path": f"{tmpdir}/project/VERSION", "version": "10.6.1"}
         )
     build_root_marker.unlink()
-
