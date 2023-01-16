@@ -29,4 +29,4 @@ jobs:
 
       - name: Application tests
         run: |
-          pytest -v -k "cli" "not pants-plugins" --vcr-record=none
+          pytest -v -k "cli" -k "not pants-plugins" --vcr-record=none
