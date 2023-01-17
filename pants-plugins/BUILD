@@ -4,3 +4,8 @@ python_requirement(
     requirements=["packaging==21.3"],
     resolve="pants-plugins",
 )
+python_requirement(
+    name="pytest",
+    requirements=["pytest==7.0.1"],
+    resolve="pants-plugins",
+)
