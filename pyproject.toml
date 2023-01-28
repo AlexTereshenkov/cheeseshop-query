@@ -1,0 +1,10 @@
+[tool.mypy]
+ignore_missing_imports = true
+
+# isort configuration stored in the `setup.cfg` with the `cheeseshop` added
+# as the known first party doesn't respect the import order on `setup.py`
+# and running `./pants fmt lint ::` results in isort failure;
+[tool.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["internal_plugins", "cheeseshop"]
