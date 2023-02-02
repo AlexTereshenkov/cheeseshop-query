@@ -25,8 +25,10 @@ jobs:
 
       - name: Unit tests
         run: |
-          pytest -v -k "not cli" --ignore="pants-plugins" --ignore="tests/pantstests" --vcr-record=none
+          pytest -v -k "not cli" --ignore="pants-plugins" \
+            --ignore="tests/pantstests" --vcr-record=none
 
       - name: Application tests
         run: |
-          pytest -v -k "cli" --ignore="pants-plugins" --ignore="tests/pantstests" --vcr-record=none
+          pytest -v -k "cli" --ignore="pants-plugins" \
+            --ignore="tests/pantstests" --vcr-record=none
