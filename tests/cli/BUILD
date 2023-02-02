@@ -3,7 +3,6 @@ python_tests(
     dependencies=[
         "cheeseshop:project-version",
         ":cassettes",
-        "tests:shell-script-to-prepare-test-data",
     ],
 )
 

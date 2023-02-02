@@ -1,3 +1,8 @@
+python_tests(
+    name="tests",
+    dependencies=[":shell-script-to-prepare-test-data", ":package-name-file"],
+)
+
 experimental_shell_command(
     name="shell-script-to-prepare-test-data",
     command="./write_test_package_name.sh",
@@ -8,3 +13,5 @@ experimental_shell_command(
 )
 
 shell_sources(name="shell-scripts", sources=["write_test_package_name.sh"])
+
+resource(name="package-name-file", source="package_name")

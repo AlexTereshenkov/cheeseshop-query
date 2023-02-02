@@ -15,9 +15,7 @@ def test_cli():
 @pytest.mark.vcr()
 def test_cli_info():
     runner = CliRunner()
-    with open("tests/testdata/test_package_name.txt") as fh:
-        package_name = fh.read().strip()
-    result = runner.invoke(cli.cli, ["info", "--package", package_name])
+    result = runner.invoke(cli.cli, ["info", "--package", "packaging"])
     assert result.exit_code == 0
     assert "Core utilities for Python packages" in result.output
 
