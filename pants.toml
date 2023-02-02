@@ -4,6 +4,7 @@ pants_version = "2.14.1"
 pythonpath = ["%(buildroot)s/pants-plugins"]
 
 backend_packages = [
+  "pants.backend.shell",
   "pants.backend.python",
   "pants.backend.python.lint.black",
   "pants.backend.python.lint.flake8",
@@ -81,6 +82,7 @@ extra_requirements.add = [
 # https://www.pantsbuild.org/docs/reference-pytest#section-extra-requirements
 extra_requirements.add = [
   "pytest-vcr",
+  "pydevd-pycharm==223.8617.48",
 ]
 lockfile = "requirements/pytest.lock"
 args = ["-v", "--vcr-record=none"]

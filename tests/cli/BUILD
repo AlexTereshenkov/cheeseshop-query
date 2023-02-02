@@ -1,6 +1,9 @@
 python_tests(
     name="tests",
-    dependencies=["cheeseshop:project-version", ":cassettes"],
+    dependencies=[
+        "cheeseshop:project-version",
+        ":cassettes",
+    ],
 )
 
 resources(
