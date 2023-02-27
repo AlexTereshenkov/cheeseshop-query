@@ -38,6 +38,10 @@ jobs:
         run: |
           ./pants version
 
+      - name: Run tailor check
+        run: |
+          ./pants tailor --check ::
+
       - name: Run tests
         run: |
           ./pants test ::
