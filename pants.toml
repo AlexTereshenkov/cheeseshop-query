@@ -1,5 +1,5 @@
 [GLOBAL]
-pants_version = "2.14.1"
+pants_version = "2.15.0"
 
 pythonpath = ["%(buildroot)s/pants-plugins"]
 
@@ -86,3 +86,6 @@ extra_requirements.add = [
 ]
 lockfile = "requirements/pytest.lock"
 args = ["-v", "--vcr-record=none"]
+
+[tailor]
+ignore_paths = ["requirements/BUILD"]
