@@ -80,9 +80,12 @@ async def goal_show_project_version(
     targets: Targets,
     project_version_subsystem: ProjectVersionSubsystem,
 ) -> ProjectVersionGoal:
-    targets = [tgt for tgt in targets if tgt.has_field(ProjectVersionSourceField)]
+    filtered_targets = [
+        tgt for tgt in targets if tgt.has_field(ProjectVersionSourceField)
+    ]
     results = await MultiGet(
-        Get(ProjectVersionFileView, ProjectVersionTarget, target) for target in targets
+        Get(ProjectVersionFileView, ProjectVersionTarget, target)
+        for target in filtered_targets
     )
     if project_version_subsystem.match_git:
         git_repo_version = await Get(GitTagVersion, str, "")
