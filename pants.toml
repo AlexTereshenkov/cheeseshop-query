@@ -1,6 +1,8 @@
 [GLOBAL]
-pants_version = "2.16.0rc6"
-
+pants_version = "2.16.0"
+ignore_warnings = [
+  '$regex$DEPRECATED',
+]
 pythonpath = ["%(buildroot)s/pants-plugins"]
 
 backend_packages = [
@@ -11,6 +13,7 @@ backend_packages = [
   "pants.backend.python.lint.docformatter",
   "pants.backend.python.lint.isort",
   "pants.backend.python.typecheck.mypy",
+  "pants.backend.experimental.visibility",
   # plugins
   "pants.backend.plugin_development",
   "internal_plugins.project_version",
