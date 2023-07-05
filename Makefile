@@ -1,7 +1,6 @@
 check:
-	./pants update-build-files fmt lint test check ::
-	./pants project-version --as-json cheeseshop:
-	./pants project-version --no-as-json cheeseshop:
-	yamllint .github --no-warnings
+	black .
+	flake8 cheeseshop tests
+	mypy cheeseshop
 package:
-	./pants package cheeseshop/cli:cheeseshop-query
+	python3 setup.py bdist_wheel
