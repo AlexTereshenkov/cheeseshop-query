@@ -17,6 +17,7 @@ backend_packages = [
   # plugins
   "pants.backend.plugin_development",
   "internal_plugins.project_version",
+  "internal_plugins.deps_grouping",
 ]
 
 plugins = ["packaging==21.3"]
