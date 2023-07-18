@@ -1,6 +1,6 @@
 python_sources(
     overrides={
-        "version.py": {"dependencies": ["//:deps-group-1"]},
+        "version.py": {"dependencies": ["//:deps-group-2"]},
     }
 )
 
