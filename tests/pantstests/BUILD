@@ -8,7 +8,7 @@ shell_command(
     command="./write_test_package_name.sh",
     tools=["echo", "bash", "mkdir"],
     execution_dependencies=[":shell-scripts"],
-    outputs=["testdata/"],
+    output_directories=["testdata/"],
     log_output=True,
 )
 
