@@ -8,3 +8,6 @@ ignore_missing_imports = true
 profile = "black"
 line_length = 88
 known_first_party = ["internal_plugins", "cheeseshop"]
+
+[tool.bandit]
+skips = ["B101"]

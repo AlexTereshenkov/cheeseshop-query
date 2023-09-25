@@ -1,0 +1,13 @@
+fail_fast: false
+repos:
+  - repo: local
+    hooks:
+      - id: pants-lint
+        name: pants lint
+        always_run: false
+        description: runs pants --no-dynamic-ui lint on python files
+        entry: pants --changed-since=HEAD --changed-dependents=transitive lint
+        language: system
+        verbose: true
+        pass_filenames: false
+        types: [file, python]

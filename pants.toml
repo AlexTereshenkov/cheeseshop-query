@@ -1,5 +1,5 @@
 [GLOBAL]
-pants_version = "2.16.0"
+pants_version = "2.17.0"
 ignore_warnings = [
   '$regex$DEPRECATED',
 ]
@@ -9,6 +9,7 @@ backend_packages = [
   "pants.backend.shell",
   "pants.backend.python",
   "pants.backend.python.lint.black",
+  "pants.backend.python.lint.bandit",
   "pants.backend.python.lint.flake8",
   "pants.backend.python.lint.docformatter",
   "pants.backend.python.lint.isort",
@@ -92,3 +93,9 @@ args = ["-v", "--vcr-record=none"]
 
 [tailor]
 ignore_paths = ["requirements/BUILD"]
+
+[bandit]
+version = "bandit[toml]>=1.7.0,<1.8"
+args = "--quiet"
+config = "./pyproject.toml"
+lockfile = "requirements/bandit.lock"
