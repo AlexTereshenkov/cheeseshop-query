@@ -1,8 +1,10 @@
 wheel
 black
+docformatter
 flake8
 mypy
 types-python-dateutil
+types-setuptools
 types-requests
 isort
 yamllint
