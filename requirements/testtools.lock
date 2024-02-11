@@ -6,7 +6,7 @@
 // {
 //   "version": 3,
 //   "valid_for_interpreter_constraints": [
-//     "CPython<=3.10.*,>=3.9.*"
+//     "CPython<3.10,>=3.9"
 //   ],
 //   "generated_with_requirements": [
 //     "coverage",
@@ -611,7 +611,7 @@
     }
   ],
   "path_mappings": {},
-  "pex_version": "2.1.137",
+  "pex_version": "2.1.148",
   "pip_version": "23.1.2",
   "prefer_older_binary": false,
   "requirements": [
@@ -621,7 +621,7 @@
     "pytest-vcr"
   ],
   "requires_python": [
-    "<=3.10.*,>=3.9.*"
+    "<3.10,>=3.9"
   ],
   "resolver_version": "pip-2020-resolver",
   "style": "universal",

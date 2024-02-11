@@ -1,5 +1,5 @@
 [GLOBAL]
-pants_version = "2.18.0"
+pants_version = "2.19.0"
 ignore_warnings = [
   '$regex$DEPRECATED',
 ]
@@ -28,7 +28,7 @@ match_git = false
 
 [python]
 enable_resolves = true
-interpreter_constraints = ["CPython>=3.9.*,<=3.10.*"]
+interpreter_constraints = ["CPython>=3.9,<3.10"]
 
 [python.resolves]
 pants-plugins = "pants-plugins/requirements-pants-plugins.lock"
