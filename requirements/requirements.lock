@@ -6,7 +6,7 @@
 // {
 //   "version": 3,
 //   "valid_for_interpreter_constraints": [
-//     "CPython<=3.10.*,>=3.9.*"
+//     "CPython<3.10,>=3.9"
 //   ],
 //   "generated_with_requirements": [
 //     "click",
@@ -273,7 +273,7 @@
           "requires_dists": [
             "PySocks!=1.5.7,>=1.5.6; extra == \"socks\"",
             "certifi>=2017.4.17",
-            "chardet<6,>=3.0.2; extra == \"use_chardet_on_py3\"",
+            "chardet<6,>=3.0.2; extra == \"use-chardet-on-py3\"",
             "charset-normalizer<4,>=2",
             "idna<4,>=2.5",
             "urllib3<3,>=1.21.1"
@@ -448,7 +448,7 @@
     }
   ],
   "path_mappings": {},
-  "pex_version": "2.1.137",
+  "pex_version": "2.1.148",
   "pip_version": "23.1.2",
   "prefer_older_binary": false,
   "requirements": [
@@ -463,7 +463,7 @@
     "typing-extensions"
   ],
   "requires_python": [
-    "<=3.10.*,>=3.9.*"
+    "<3.10,>=3.9"
   ],
   "resolver_version": "pip-2020-resolver",
   "style": "universal",
