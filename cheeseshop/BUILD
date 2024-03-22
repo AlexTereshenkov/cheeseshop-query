@@ -1,4 +1,8 @@
-python_sources()
+python_sources(
+    overrides={
+        "version.py": {"dependencies": ["//:deps-group-2"]},
+    }
+)
 
 resource(
     name="project-version",

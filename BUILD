@@ -26,3 +26,13 @@ python_distribution(
     sdist=False,
     generate_setup=False,
 )
+
+deps_group(
+    name="deps-group-1",
+    source="deps-grouping.json",
+)
+
+deps_group(
+    name="deps-group-2",
+    source="deps-grouping.json",
+)

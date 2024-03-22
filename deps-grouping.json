@@ -1,0 +1,4 @@
+{
+  "deps-group-1": ["click", "loguru", "setuptools"],
+  "deps-group-2": ["requests"]
+}
