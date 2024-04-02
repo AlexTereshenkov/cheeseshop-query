@@ -86,3 +86,6 @@ args = ["-v", "--vcr-record=none"]
 
 [tailor]
 ignore_paths = ["requirements/BUILD"]
+
+[pex]
+verbosity = 9
