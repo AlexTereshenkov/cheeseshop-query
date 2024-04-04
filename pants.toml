@@ -86,3 +86,9 @@ args = ["-v", "--vcr-record=none"]
 
 [tailor]
 ignore_paths = ["requirements/BUILD"]
+
+[environments-preview.names]
+docker_debian_3_9 = "//:docker_debian_3_9"
+docker_debian_3_10 = "//:docker_debian_3_10"
+docker_debian_3_11 = "//:docker_debian_3_11"
+docker_debian_3_12 = "//:docker_debian_3_12"
