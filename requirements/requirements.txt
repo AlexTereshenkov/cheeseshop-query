@@ -7,3 +7,4 @@ setuptools
 typing-extensions
 types-python-dateutil
 types-requests
+python3-tabulate

@@ -17,7 +17,8 @@
 //     "setuptools",
 //     "types-python-dateutil",
 //     "types-requests",
-//     "typing-extensions"
+//     "typing-extensions",
+//     "python3-tabulate"
 //   ],
 //   "manylinux": "manylinux2014",
 //   "requirement_constraints": [],
@@ -156,6 +157,19 @@
           ],
           "requires_python": ">=3.7",
           "version": "8.1.7"
+        },
+        {
+          "artifacts": [
+            {
+              "algorithm": "sha256",
+              "hash": "ae74fb96c20a0277a1d615f1e4d73c8414f5a98db8b799a7931d1582f3390c28",
+              "url": "https://files.pythonhosted.org/packages/00/2e/d53fa4befbf2cfa713304affc7ca780ce4fc1fd8710527771b58311a3229/click-8.1.7-py3-none-any.whl"
+            }
+          ],
+          "project_name": "python3-tabulate",
+          "requires_dists": [],
+          "requires_python": ">=3.7",
+          "version": "9999"
         },
         {
           "artifacts": [
@@ -460,7 +474,8 @@
     "setuptools",
     "types-python-dateutil",
     "types-requests",
-    "typing-extensions"
+    "typing-extensions",
+    "python3-tabulate"
   ],
   "requires_python": [
     "<3.10,>=3.9"

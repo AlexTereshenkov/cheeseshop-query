@@ -15,3 +15,13 @@ python_requirements(
     source="requirements-dev.txt",
     resolve="devtools",
 )
+
+python_requirement(
+    name="python-requirement",
+    modules=[
+        "tabulate",
+    ],
+    requirements=[
+        "python3-tabulate",
+    ],
+)
