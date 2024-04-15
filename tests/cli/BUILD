@@ -4,6 +4,7 @@ python_tests(
         "cheeseshop:project-version",
         ":cassettes",
     ],
+    extra_env_vars=["PEX_EXTRA_SYS_PATH"]
 )
 
 resources(
