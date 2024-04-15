@@ -4,8 +4,10 @@ from click.testing import CliRunner
 from cheeseshop.cli import cli
 from cheeseshop.version import VERSION
 
+import tabulate
 
 def test_cli():
+    assert tabulate.tabulate("") == ""
     runner = CliRunner()
     result = runner.invoke(cli.cli, ["--version"])
     assert result.exit_code == 0

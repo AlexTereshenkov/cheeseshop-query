@@ -1,5 +1,7 @@
 import sys
 
+import tabulate
+
 import click
 from loguru import logger
 

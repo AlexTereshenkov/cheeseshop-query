@@ -26,3 +26,16 @@ python_distribution(
     sdist=False,
     generate_setup=False,
 )
+
+python_requirement(
+    name="python3-tabulate",
+    modules=[
+        "tabulate",
+    ],
+    requirements=[
+        "python3-tabulate",
+    ],
+    tags=[
+        "provided",
+    ],
+)
