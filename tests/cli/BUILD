@@ -1,7 +1,8 @@
 python_tests(
     name="tests",
     dependencies=[
-        "cheeseshop:project-version",
+        #"cheeseshop:project-version",
+        "cheeseshop:main-project-version",
         ":cassettes",
     ],
 )

@@ -17,7 +17,7 @@ python_distribution(
     dependencies=[
         ":setup-py",
         ":MANIFEST",
-        "cheeseshop:project-version",
+        #"cheeseshop:project-version",
         "cheeseshop/cli:cheeseshop-query",
     ],
     provides=python_artifact(
