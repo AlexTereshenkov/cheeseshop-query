@@ -5,5 +5,5 @@ pex_binary(
 
 python_sources(
     name="cli",
-    dependencies=["cheeseshop:project-version"],
+    #dependencies=["cheeseshop:project-version"],
 )
