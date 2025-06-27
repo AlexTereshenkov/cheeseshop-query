@@ -1,4 +1,5 @@
-bazel_dep(name = "rules_python", version = "1.4.1")
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "rules_python", version = "1.5.0-rc4")
 
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
@@ -13,3 +14,38 @@ pip.parse(
 )
 use_repo(pip, "pypi")
 use_repo(pip, "pypi-tools")
+
+# ========================================================================
+# Use local Python interpreter
+local_runtime_repo = use_repo_rule(
+    "@rules_python//python/local_toolchains:repos.bzl",
+    "local_runtime_repo",
+)
+
+local_runtime_toolchains_repo = use_repo_rule(
+    "@rules_python//python/local_toolchains:repos.bzl",
+    "local_runtime_toolchains_repo",
+)
+
+# Step 1: Define the Python runtime
+local_runtime_repo(
+    name = "local_python312",
+    interpreter_path = "python3.12",
+    on_failure = "fail",
+)
+
+# Step 2: Create toolchains for the runtimes
+local_runtime_toolchains_repo(
+    name = "local_toolchains",
+    runtimes = ["local_python312"],
+    target_settings = {
+        "local_python312": ["@//:is_py_local"],
+    },
+)
+
+# Step 3: Register the toolchains
+register_toolchains(
+    "@local_toolchains//:all",
+    dev_dependency = True,
+)
+# ========================================================================
