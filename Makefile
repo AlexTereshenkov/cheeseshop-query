@@ -1,8 +1,18 @@
 build:
 	bazel mod tidy
+	# run tabulate console entry
+
 	bazel run //tools:tabulate -- -1 -s "," -f github $(realpath tools/table.txt)
-	bazel run //:main
+
+	# run a genrule accessing Python interpreter
 	bazel build //:python-helper && cat bazel-bin/data.json
+
+	# run with a toolchain Python 3.10
+	bazel run //:main-3_10
+
+	# run with a default Python 3.11 interpreter
+	bazel run //:main
+
 	# run with a local Python 3.12 interpreter
 	bazel run --//:py=local-3_12 //:main
 

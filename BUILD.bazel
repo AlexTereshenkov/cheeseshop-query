@@ -1,13 +1,35 @@
 load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
 load("@rules_python//python:py_binary.bzl", "py_binary")
 
+# use default Python toolchain
 py_binary(
-  name = "main",
-  srcs = ["main.py"],
-  deps = [
+    name = "main",
+    srcs = ["main.py"],
+    deps = [
       "@pypi//loguru",
-  ],
-  python_version="3.11"
+    ],
+)
+
+# use particular Python toolchain (3.10)
+py_binary(
+    name = "main-3_10",
+    srcs = ["main.py"],
+    main = "main.py",
+    deps = [
+      "@pypi//loguru",
+    ],
+    python_version="3.10"
+)
+
+# use particular Python toolchain (3.11)
+py_binary(
+    name = "main-3_11",
+    main = "main.py",
+    srcs = ["main.py"],
+    deps = [
+      "@pypi//loguru",
+    ],
+    python_version="3.11"
 )
 
 genrule(
