@@ -1,35 +1,11 @@
 ## Overview
 
-## Development
+Run Python tools (console entry points):
 
 ```
-$ ./pants fmt test lint ::
-```
-
-## Tests
-
-```
-$ ./pants test ::
-```
-
-## Docs generation
-
-## Packaging
-
-```
-$ python3 setup.py bdist_pex
-$ dist/cheeseshop-query*.pex --help
-```
-
-or
-
-```
-$ ./pants package ::
-$ dist/**/*/cheeseshop*.pex --help
-```
-
-## Running
-
-```
-$ ./pants run cheeseshop/cli/cli.py -- list-versions --help
+bazel run //:tabulate -- -1 -s "," -f github $(realpath table.txt)
+| Food   | Type   |
+|--------|--------|
+| Spam   | Yummy  |
+| Eggs   | Yummy  |
 ```

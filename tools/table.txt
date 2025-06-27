@@ -1,0 +1,3 @@
+Food,Type
+Spam,Yummy
+Eggs,Yummy

@@ -1,0 +1,18 @@
+load("@rules_python//python:py_binary.bzl", "py_binary")
+
+py_binary(
+  name = "main",
+  srcs = ["main.py"],
+  deps = [
+      "@pypi//loguru",
+  ],
+  python_version="3.11"
+)
+
+genrule(
+    name = "python-helper",
+    outs = ["data.json"],
+    toolchains=["@rules_python//python:current_py_toolchain"],
+    # Path to Python interpreter via https://rules-python.readthedocs.io/en/latest/toolchains.html#toolchain-usage-in-other-rules
+    cmd = "$(PYTHON3) -c \"import json; print(json.dumps({'a': 'b'}, indent=2))\" > $@",
+)

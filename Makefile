@@ -1,9 +1,5 @@
-check:
-	pants update-build-files fmt lint ::
-	pants test ::
-	pants check ::
-	pants project-version --as-json cheeseshop:
-	pants project-version --no-as-json cheeseshop:
-	yamllint .github --no-warnings
-package:
-	pants package cheeseshop/cli:cheeseshop-query
+build:
+	bazel mod tidy
+	bazel run //tools:tabulate -- -1 -s "," -f github $(realpath tools/table.txt)
+	bazel run //:main
+	bazel build //:python-helper && cat bazel-bin/data.json
