@@ -1,1 +1,6 @@
+click
 loguru
+packaging
+python-dateutil
+requests
+typing-extensions

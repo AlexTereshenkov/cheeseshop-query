@@ -16,6 +16,11 @@ build:
 	# run with a local Python 3.12 interpreter
 	bazel run --//:py=local-3_12 //:main
 
+.PHONY: requirements
+requirements:
+	bazel run //requirements:requirements.update
+	bazel run //requirements:requirements-tools.update
+
 run-python-interpreter:
 	# run a specific Python interpreter
 	# @rules_python//python/config_settings:python_version is a build setting defined by the rules_python ruleset
