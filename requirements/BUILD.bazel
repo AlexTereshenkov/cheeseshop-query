@@ -7,6 +7,12 @@ compile_pip_requirements(
 )
 
 compile_pip_requirements(
+    name = "requirements-test",
+    src = "requirements-test.txt",
+    requirements_txt = "requirements-test.lock",
+)
+
+compile_pip_requirements(
     name = "requirements-tools",
     src = "requirements-tools.txt",
     requirements_txt = "requirements-tools.lock",

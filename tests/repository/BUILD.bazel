@@ -1,0 +1,14 @@
+load("//:defs/defs.bzl", "pytest_test")
+
+pytest_test(
+    name = "test_repository",
+    srcs = glob(["test_*.py"]),
+    deps = [
+        "@pypi//loguru",
+        "@pypi-test//pytest",
+        "@pypi-test//pytest_vcr",
+        "//cheeseshop/repository:repository"
+    ],
+    # might need refreshing cassette, failing for now
+    # data = ["//tests/repository/cassettes:cassettes"]
+)

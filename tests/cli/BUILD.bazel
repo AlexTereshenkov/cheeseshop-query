@@ -1,0 +1,12 @@
+load("//:defs/defs.bzl", "pytest_test")
+
+pytest_test(
+    name = "test_cli",
+    srcs = ["test_cli.py"],
+    deps = [
+        "@pypi-test//pytest",
+        "@pypi-test//pytest_vcr",
+        "//cheeseshop/cli:cli"],
+    # might need refreshing cassette, failing for now
+    # data = ["//tests/cli/cassettes"],
+)

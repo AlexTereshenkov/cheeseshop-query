@@ -16,10 +16,23 @@ build:
 	# run with a local Python 3.12 interpreter
 	bazel run --//:py=local-3_12 //:main
 
+run:
+	bazel run //cheeseshop/cli -- list-versions \
+	  --package="numpy" \
+	  --package-type="bdist_wheel" \
+	  --python-version="cp313" \
+	  --platform="linux" \
+	  --arch="aarch64" \
+	  --stable-only
+
 .PHONY: requirements
 requirements:
 	bazel run //requirements:requirements.update
+	bazel run //requirements:requirements-test.update
 	bazel run //requirements:requirements-tools.update
+
+test:
+	bazel test //tests/... --nocache_test_results
 
 run-python-interpreter:
 	# run a specific Python interpreter

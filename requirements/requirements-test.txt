@@ -1,4 +1,3 @@
 pytest
 pytest-vcr
 coverage
-pydevd-pycharm==223.8617.48

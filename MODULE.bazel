@@ -22,11 +22,17 @@ pip.parse(
     requirements_lock = "//requirements:requirements.lock",
 )
 pip.parse(
+    hub_name = "pypi-test",
+    python_version = "3.11",
+    requirements_lock = "//requirements:requirements-test.lock",
+)
+pip.parse(
     hub_name = "pypi-tools",
     python_version = "3.11",
     requirements_lock = "//requirements:requirements-tools.lock",
 )
 use_repo(pip, "pypi")
+use_repo(pip, "pypi-test")
 use_repo(pip, "pypi-tools")
 
 # ========================================================================

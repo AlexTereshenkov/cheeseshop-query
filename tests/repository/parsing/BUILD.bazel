@@ -1,0 +1,12 @@
+load("//:defs/defs.bzl", "pytest_test")
+
+pytest_test(
+    name = "test_parsing",
+    srcs = glob(["test_*.py"]),
+    deps = [
+        "@pypi//loguru",
+        "@pypi//python_dateutil",
+        "@pypi-test//pytest",
+        "//cheeseshop/repository/parsing:parsing"
+    ],
+)

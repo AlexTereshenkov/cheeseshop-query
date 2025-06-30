@@ -9,4 +9,5 @@ py_binary(
       "//cheeseshop/cli/utils:utils",
       "//cheeseshop/repository",
     ],
+    visibility = ["//visibility:public"],
 )
