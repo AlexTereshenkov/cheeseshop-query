@@ -34,6 +34,17 @@ requirements:
 test:
 	bazel test //tests/... --nocache_test_results
 
+coverage:
+	rm -rf genhtml
+	bazel clean
+	bazel coverage //tests/... \
+		--nocache_test_results \
+		--collect_code_coverage \
+		--combined_report=lcov \
+		--instrument_test_targets \
+		--instrumentation_filter="^//cheeseshop[/:],^//tests[/:]"
+	genhtml --output genhtml "$(shell bazel info output_path)/_coverage/_coverage_report.dat"
+
 run-python-interpreter:
 	# run a specific Python interpreter
 	# @rules_python//python/config_settings:python_version is a build setting defined by the rules_python ruleset

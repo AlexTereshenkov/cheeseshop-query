@@ -135,4 +135,6 @@ docs/
 
 **/bazel-*
 
-.ijwb
+.ijwb/
+
+genhtml/
