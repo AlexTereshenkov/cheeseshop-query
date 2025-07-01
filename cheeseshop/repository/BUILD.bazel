@@ -1,0 +1,14 @@
+load("@rules_python//python:py_library.bzl", "py_library")
+
+py_library(
+    name = "repository",
+    srcs = glob(["*.py"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "//cheeseshop",
+        "//cheeseshop/repository/parsing",
+        "@pypi//packaging",
+        "@pypi//requests",
+        "@pypi//typing_extensions",
+    ],
+)

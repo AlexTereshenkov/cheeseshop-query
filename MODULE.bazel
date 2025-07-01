@@ -1,0 +1,77 @@
+bazel_dep(name = "buildifier_prebuilt", version = "8.0.3", dev_dependency = True)
+
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "rules_python", version = "1.5.0-rc4")
+bazel_dep(name = "aspect_rules_py", version = "1.6.0")
+
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.defaults(python_version = "3.11")
+
+# register multiple toolchains with different Python versions
+python.toolchain(python_version = "3.10")
+python.toolchain(
+    configure_coverage_tool = True,
+    python_version = "3.11",
+)
+
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+
+# you have to provide multiple pip.parse for each Python version supported
+pip.parse(
+    hub_name = "pypi",
+    python_version = "3.10",
+    requirements_lock = "//requirements:requirements.lock",
+)
+pip.parse(
+    hub_name = "pypi",
+    python_version = "3.11",
+    requirements_lock = "//requirements:requirements.lock",
+)
+pip.parse(
+    hub_name = "pypi-test",
+    python_version = "3.11",
+    requirements_lock = "//requirements:requirements-test.lock",
+)
+pip.parse(
+    hub_name = "pypi-tools",
+    python_version = "3.11",
+    requirements_lock = "//requirements:requirements-tools.lock",
+)
+use_repo(pip, "pypi")
+use_repo(pip, "pypi-test")
+use_repo(pip, "pypi-tools")
+
+# ========================================================================
+# Use local Python interpreter
+local_runtime_repo = use_repo_rule(
+    "@rules_python//python/local_toolchains:repos.bzl",
+    "local_runtime_repo",
+)
+
+local_runtime_toolchains_repo = use_repo_rule(
+    "@rules_python//python/local_toolchains:repos.bzl",
+    "local_runtime_toolchains_repo",
+)
+
+# Step 1: Define the Python runtime
+local_runtime_repo(
+    name = "local_python312",
+    interpreter_path = "python3.12",
+    on_failure = "fail",
+)
+
+# Step 2: Create toolchains for the runtimes
+local_runtime_toolchains_repo(
+    name = "local_toolchains",
+    runtimes = ["local_python312"],
+    target_settings = {
+        "local_python312": ["@//:is_py_local"],
+    },
+)
+
+# Step 3: Register the toolchains
+register_toolchains(
+    "@local_toolchains//:all",
+    dev_dependency = True,
+)
+# ========================================================================

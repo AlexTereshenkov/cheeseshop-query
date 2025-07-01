@@ -4,6 +4,7 @@ from enum import Enum
 class Architecture(Enum):
     X86_64 = "x86_64"
     ARM = "arm64"
+    AARCH = "aarch64"
 
 
 class Platform(Enum):

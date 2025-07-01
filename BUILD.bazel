@@ -1,0 +1,60 @@
+load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
+load("@buildifier_prebuilt//:rules.bzl", "buildifier")
+load("@rules_python//python:py_binary.bzl", "py_binary")
+
+buildifier(
+    name = "buildifier",
+    lint_mode = "fix",
+    mode = "fix",
+)
+
+# use default Python toolchain
+py_binary(
+    name = "main",
+    srcs = ["main.py"],
+    deps = [
+        "@pypi//loguru",
+    ],
+)
+
+# use particular Python toolchain (3.10)
+py_binary(
+    name = "main-3_10",
+    srcs = ["main.py"],
+    main = "main.py",
+    python_version = "3.10",
+    deps = [
+        "@pypi//loguru",
+    ],
+)
+
+# use particular Python toolchain (3.11)
+py_binary(
+    name = "main-3_11",
+    srcs = ["main.py"],
+    main = "main.py",
+    python_version = "3.11",
+    deps = [
+        "@pypi//loguru",
+    ],
+)
+
+genrule(
+    name = "python-helper",
+    outs = ["data.json"],
+    # Path to Python interpreter via a MAKE variable
+    # https://rules-python.readthedocs.io/en/latest/toolchains.html#toolchain-usage-in-other-rules
+    cmd = "$(PYTHON3) -c \"import json; print(json.dumps({'a': 'b'}, indent=2))\" > $@",
+    toolchains = ["@rules_python//python:current_py_toolchain"],
+)
+
+# flag to request using a local Python interpreter
+config_setting(
+    name = "is_py_local",
+    flag_values = {":py": "local-3_12"},
+)
+
+string_flag(
+    name = "py",
+    build_setting_default = "",
+)

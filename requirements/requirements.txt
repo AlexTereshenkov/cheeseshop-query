@@ -3,7 +3,4 @@ loguru
 packaging
 python-dateutil
 requests
-setuptools
 typing-extensions
-types-python-dateutil
-types-requests

@@ -133,7 +133,8 @@ dmypy.json
 
 docs/
 
-# Pants workspace files
-/.pants.*
-/dist/
-/.pids
+**/bazel-*
+
+.ijwb/
+
+genhtml/

@@ -1,35 +1,58 @@
 ## Overview
 
-## Development
+Run Python tools (console entry points):
 
 ```
-$ ./pants fmt test lint ::
+$ bazel run //:tabulate -- -1 -s "," -f github $(realpath table.txt)
+| Food   | Type   |
+|--------|--------|
+| Spam   | Yummy  |
+| Eggs   | Yummy  |
 ```
 
-## Tests
+Run entry point:
 
-```
-$ ./pants test ::
-```
-
-## Docs generation
-
-## Packaging
-
-```
-$ python3 setup.py bdist_pex
-$ dist/cheeseshop-query*.pex --help
+```shell
+$ bazel run //cheeseshop/cli -- list-versions \
+  --package="numpy" \
+  --package-type="bdist_wheel" \
+  --python-version="cp313" \
+  --platform="linux" \
+  --arch="aarch64" \
+  --stable-only
 ```
 
-or
+Generate code coverage:
 
-```
-$ ./pants package ::
-$ dist/**/*/cheeseshop*.pex --help
+```shell
+$ bazel coverage //tests/... \
+    --nocache_test_results \
+    --collect_code_coverage \
+    --combined_report=lcov \
+    --instrumentation_filter="^//cheeseshop[/:],^//tests[/:]"
 ```
 
-## Running
+`lcov --list` might expects function and branch data, which Bazel's Python coverage tooling does
+not provide, so it defaults to 0% even if line coverage is present:
 
+```shell
+$ lcov --list "$(bazel info output_path)/_coverage/_coverage_report.dat"
 ```
-$ ./pants run cheeseshop/cli/cli.py -- list-versions --help
+
+Use `genhtml` instead:
+
+```shell
+$ genhtml --output genhtml "$(bazel info output_path)/_coverage/_coverage_report.dat"
+```
+
+## Export venv
+
+Having a `py_binary` from `aspect_rules_py` automatically creates a `<target>.venv` target.
+Create a `.venv` directory with all dependencies of a `py_binary` pre-installed:
+
+```shell
+$ bazel query --output=label_kind //... | grep py_venv
+_py_venv_binary rule //cheeseshop/cli:cli.venv
+
+$ bazel run //cheeseshop/cli:cli.venv -- --name=".venv"
 ```

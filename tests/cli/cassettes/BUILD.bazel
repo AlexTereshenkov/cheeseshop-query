@@ -1,0 +1,5 @@
+filegroup(
+    name = "cassettes",
+    srcs = glob(["*.yaml"]),
+    visibility = ["//visibility:public"],
+)
