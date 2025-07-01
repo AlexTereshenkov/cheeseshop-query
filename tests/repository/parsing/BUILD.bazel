@@ -4,9 +4,9 @@ pytest_test(
     name = "test_parsing",
     srcs = glob(["test_*.py"]),
     deps = [
+        "//cheeseshop/repository/parsing",
+        "@pypi-test//pytest",
         "@pypi//loguru",
         "@pypi//python_dateutil",
-        "@pypi-test//pytest",
-        "//cheeseshop/repository/parsing:parsing"
     ],
 )

@@ -3,11 +3,11 @@ load("@rules_python//python:py_library.bzl", "py_library")
 py_library(
     name = "parsing",
     srcs = glob(["*.py"]),
+    visibility = ["//visibility:public"],
     deps = [
         # referencing a PyPI package that has a characters that are illegal in Bazel
         # label names (e.g. "-" and "."), so need to replace those characters with "_",
         # so python-dateutil becomes python_dateutil
         "@pypi//python_dateutil",
     ],
-    visibility = ["//visibility:public"],
 )

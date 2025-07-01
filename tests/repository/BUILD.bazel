@@ -4,10 +4,10 @@ pytest_test(
     name = "test_repository",
     srcs = glob(["test_*.py"]),
     deps = [
-        "@pypi//loguru",
+        "//cheeseshop/repository",
         "@pypi-test//pytest",
         "@pypi-test//pytest_vcr",
-        "//cheeseshop/repository:repository"
+        "@pypi//loguru",
     ],
     # might need refreshing cassette, failing for now
     # data = ["//tests/repository/cassettes:cassettes"]
