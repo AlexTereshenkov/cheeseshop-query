@@ -16,6 +16,9 @@ build:
 	# run with a local Python 3.12 interpreter
 	bazel run --//:py=local-3_12 //:main
 
+fmt:
+	bazel run //:buildifier
+
 run:
 	bazel run //cheeseshop/cli -- list-versions \
 	  --package="numpy" \
@@ -44,6 +47,12 @@ coverage:
 		--instrument_test_targets \
 		--instrumentation_filter="^//cheeseshop[/:],^//tests[/:]"
 	genhtml --output genhtml "$(shell bazel info output_path)/_coverage/_coverage_report.dat"
+
+package:
+	bazel clean
+	bazel build //cheeseshop/cli:cli-pex
+	bazel-bin/cheeseshop/cli/cli-pex.pex
+
 
 run-python-interpreter:
 	# run a specific Python interpreter
